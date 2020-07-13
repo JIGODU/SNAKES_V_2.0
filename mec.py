@@ -9,12 +9,20 @@ import random as r
 
 # Funtions
 def VALID(VAL):
+    """
+    VALID(VAL) ---> 1 or 0
+    \nReturn whether the keyhit is valid.
+    """
     if VAL in [b'w',b'a',b's',b'd']:
         return 1
     else :
         return 0
  
 def POLAR(VAL):
+    """
+    POLAR(VAL) ---> byte
+    \nReturns the opposite in wasd format
+    """
     if VAL==b'w':
         return b's'
     elif VAL==b'a':
@@ -25,6 +33,10 @@ def POLAR(VAL):
         return b'a'
 
 def RANDOM_DIR():
+    """
+    RANDOM_DIR(VAL) ---> byte
+    \nReturns a random w,a,s,d byte
+    """
     V = r.randint(1,4)
     if V == 1 :
         return b'w'
@@ -36,6 +48,18 @@ def RANDOM_DIR():
         return b's'
 
 def ACTION(MODE,WINDOW,SNAKE,PREY,KEY,SCORE,SPEED):
+    """
+    ACTION( MODE , WINDOW , SNAKE , PREY , KEY , SCORE , SPEED ) ---> LOOP_CODE,SCORE,SPEED /
+\n The function itself as a recursion under certain condition : Spoiler - trying to do a backflip
+\n MODE\t: The game mode.
+\n WINDOW\t: The screen
+\n SNAKE\t: The snake array
+\n PREY\t: The prey location
+\n KEY\t: The current key
+\n SCORE\t: The score duh
+\n SPEED\t: Non keyhit update speed (snakes speed)
+\n This is an object entity interaction function with which the entity interact to foriegn entities.
+    """
     NEXT_P = SNAKE.GRASP(KEY)
     PREY_P = PREY.GET()
     SNAKES = SNAKE.GET()
@@ -78,71 +102,14 @@ def ACTION(MODE,WINDOW,SNAKE,PREY,KEY,SCORE,SPEED):
         SNAKE.MOVE(KEY)
         return 1,SCORE,SPEED
 
-# def ACTION(MODE,WINDOW,SNAKE,PREY,KEY,SCORE,SPEED):
-#     if MODE == 0:
-#         NEXT_P = SNAKE.GRASP(KEY)
-#         PREY_P = PREY.GET()
-#         SNAKES = SNAKE.GET()
-#         if NEXT_P == PREY_P :
-#             SNAKE.EAT(PREY_P)
-#             PREY.RESPAWN()
-#             SCORE += 1
-#             if SPEED<101:
-#                 SPEED += 1        
-#             return 1,SCORE,SPEED
-#         elif WINDOW.HIT_BOUND(NEXT_P):
-#             KEY = SNAKE.JUMP(KEY)
-#             return ACTION(MODE,WINDOW,SNAKE,PREY,KEY,SCORE,SPEED)
-#         elif NEXT_P == SNAKES[-2] :
-#             KEY = POLAR(KEY)
-#             return ACTION(MODE,WINDOW,SNAKE,PREY,KEY,SCORE,SPEED)
-#         elif NEXT_P in SNAKES[:-3] :
-#             return 0,SCORE,SPEED
-#         else:
-#             SNAKE.MOVE(KEY)
-#             return 1,SCORE,SPEED
-#     elif MODE == 1:
-#         NEXT_P = SNAKE.GRASP(KEY)
-#         PREY_P = PREY.GET()
-#         SNAKES = SNAKE.GET()
-#         if NEXT_P == PREY_P :
-#             SNAKE.EAT(PREY_P)
-#             PREY.RESPAWN()
-#             SCORE += 1
-#             if SPEED<101:
-#                 SPEED += 1        
-#             return 1,SCORE,SPEED
-#         elif WINDOW.HIT_BOUND(NEXT_P):
-#             return 0,SCORE,SPEED
-#         elif NEXT_P == SNAKES[-2] :
-#             KEY = POLAR(KEY)
-#             return ACTION(MODE,WINDOW,SNAKE,PREY,KEY,SCORE,SPEED)
-#         elif NEXT_P in SNAKES[:-3] :
-#             return 0,SCORE,SPEED
-#         else:
-#             SNAKE.MOVE(KEY)
-#             return 1,SCORE,SPEED
-#     else:
-#         NEXT_P = SNAKE.GRASP(KEY)
-#         PREY_P = PREY.GET()
-#         SNAKES = SNAKE.GET()
-#         if NEXT_P == PREY_P :
-#             SNAKE.EAT(PREY_P)
-#             PREY.RESPAWN()
-#             SCORE += 1
-#             SPEED += 1        
-#             return 1,SCORE,SPEED
-#         elif WINDOW.HIT_BOUND(NEXT_P):
-#             return 0,SCORE,SPEED
-#         elif NEXT_P == SNAKES[-2] :
-#             KEY = POLAR(KEY)
-#             return ACTION(MODE,WINDOW,SNAKE,PREY,KEY,SCORE,SPEED)
-#         elif NEXT_P in SNAKES[:-3] :
-#             return 0,SCORE,SPEED
-#         else:
-#             SNAKE.MOVE(KEY)
-#             return 1,SCORE,SPEED
+
 def GAME(MODE):
+    """
+    GAME(MODE) ---> SCORE
+\n MODE : The game mode
+This is the actual game and io system (later i realised this was a dumb move #multithreading)
+\nAt last it returns your score..
+    """
     W = e.window()
     SCR =W.GET()
     S = e.snake(SCR)
@@ -194,6 +161,10 @@ def GAME(MODE):
     return SCORE
 
 if __name__ == "__main__":
+    """
+    A short implementation of the game without any other gui hassles.
+\nEnjoy it if you just wanna play
+    """
     NAME = 'DEBUG'
     SCORE = GAME(0)
     if os.name == 'nt' :
