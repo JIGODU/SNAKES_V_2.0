@@ -17,6 +17,9 @@
  - > __random__
  - > __msvcrt__
  
+ ## Starting
+__Run__ the 'Snakes.py' file with python most suitabily in Windows Command Prompt
+ 
  ## Support Me ?
  This title may look ridiculus but I need knowledge support, not monetary (not yet :wink:). So if you find a better way to implement certain thing please do share.
  
