@@ -1,11 +1,16 @@
+# Importing all modules
 import os
 import sys
 import scr
 import mec
 import time
 import msvcrt as m
+
+# Global Varibales (can be point of attack)
 BLANK = False
 HIGH_SCORES = []
+
+#Starting up the High Scores record
 try:
     with open('hsl.bin','rb') as FILE:
         RECORD = None
@@ -16,6 +21,8 @@ except FileNotFoundError :
     with open('hsl.bin','wb') as FILE:
         pass
     BLANK = True
+
+# Loading records to memory
 HIGH_SCORES = HIGH_SCORES[:-1]
 NAMES = []
 SCORES = []
@@ -27,7 +34,7 @@ for I in HIGH_SCORES:
 if HIGH_SCORES == []:
     BLANK = True
 
-
+# Starting the main execution flow
 G = scr.gui()
 try:
     sel = None
@@ -98,7 +105,8 @@ try:
         elif sel == b'4':
             G.CREDITS()
     os.system('cls')
-except Exception as e:
+except:
+    #debugging part not removed
     typ,ob,tb=sys.exc_info()
     lineno = tb.tb_lineno
     fil = tb.tb_frame.f_code.co_filename
