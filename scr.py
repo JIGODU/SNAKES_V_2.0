@@ -1,8 +1,11 @@
+#  Importing necessary modules
 import os
+import sys
 import time as t
 import msvcrt as m
 
 class gui:
+    """ Includes all the used screen . I know. Not an efficient way"""
     def __init__(self):
         __A = ['░'*120]*10
         __C = ['░'*120]*10
@@ -124,18 +127,38 @@ class gui:
         __H.append(__B+'╚══════════════════════════════════════════════════════════════╝'+__B)
         self.__HSCREEN = __H
     def GET_M(self):
+        """
+        GET_M() ---> Main
+\nReturns the Main screen
+        """
         return self.__MSCREEN
 
     def GET_L(self):
+        """
+        GET_L() ---> Levels
+\nReturns the Levels screen
+        """
         return self.__LSCREEN
 
     def GET_N(self):
+        """
+        GET_N() ---> Name
+\nReturns the Names screen
+        """
         return self.__NSCREEN
     
     def GET_I(self):
+        """
+        GET_I() ---> Instructions
+\nReturns the Instructions screen
+        """
         return self.__ISCREEN
 
     def MAINS(self):
+        """
+        MAINS() ---> Byte
+\nReturns the Selected option from main screen
+        """
         if os.name == 'nt' :
             os.system('cls')
         else:
@@ -150,6 +173,10 @@ class gui:
         return v
 
     def INSTRUCTIONS(self):
+        """
+        INSTRUCTIONS() ---> None
+\nDisplays the Instructions for the player
+        """
         if os.name == 'nt' :
             os.system('cls')
         else:
@@ -164,28 +191,37 @@ class gui:
             _ = m.getch()
         
     def CREDITS(self):
+        """
+        CREDITS() ---> None
+\nDisplays the credits screen
+        """
         T =[]
+        BUFF=''
         for I in self.__CSCREEN:
-            print(I)
+            BUFF+=I+'\n'
+        sys.stdout.write(BUFF)
         while not m.kbhit():
             n = t.perf_counter()
             T.append(n)
             if T[-1]-T[0]>0.08:
-                if os.name == 'nt' :
-                    os.system('cls')
-                else:
-                    os.system('clear')
+                sys.stdout.flush()
                 for I in range(len(self.__CSCREEN)) :
                     if I>=11 and I<=19:
                         self.__CSCREEN[I]= self.__CSCREEN[I][1:]+self.__CSCREEN[I][0]
+                BUFF=''
                 for I in self.__CSCREEN:
-                    print(I)
+                    BUFF+=I+'\n'
+                sys.stdout.write(BUFF)
                 del T
                 T = []
         _ = m.getch()
         t.sleep(0.25)
 
     def LEVELS(self):
+        """
+        LEVELS() ---> Byte
+\nReturns the Selected level from difficulty mode screen
+        """
         if os.name == 'nt' :
             os.system('cls')
         else:
@@ -200,6 +236,10 @@ class gui:
         return v
 
     def NAME(self):
+        """
+        NAME() ---> String
+\nReturns the name entered in the field
+        """
         if os.name == 'nt' :
             os.system('cls')
         else:
@@ -243,18 +283,21 @@ class gui:
                             TSCR += self.__NSCREEN[14][J]
                 
                     SCRN[14] = TSCR
-                    if os.name == 'nt' :
-                        os.system('cls')
-                    else:
-                        os.system('clear')
+                    sys.stdout.flush()
+                    PRN_SCR='\n'
                     for I in SCRN :
-                        print(I)
+                        PRN_SCR+=I+'\n'
+                    sys.stdout.write(PRN_SCR)
                 else:
                     if len(NAME) == 0:
                         pass
                     else:
                         return NAME
     def HIGH(self,__NAMES,__MODES,__SCORES):
+        """
+        HIGH() ---> Screen
+\nReturns the highscores record
+        """
         if os.name == 'nt' :
             os.system('cls')
         else:
@@ -287,6 +330,9 @@ class gui:
 
 
 if __name__ == "__main__":
+    """
+    Debug check looking for Highscore file.
+    """
     HIGH_SCORES = []
     try:
         with open('hsl.bin','rb') as FILE:
