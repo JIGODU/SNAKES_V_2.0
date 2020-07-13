@@ -14,7 +14,7 @@
  - > __msvcrt__
  
  ## Support Me ?
- This title may look ridiculus but i need knowledge support, not monetary(not yet). So if you find a better way to implement certain thing please do share.
+ This title may look ridiculus but I need knowledge support, not monetary (not yet :wink:). So if you find a better way to implement certain thing please do share.
  
  
  ### Enjoy the game :+1:
